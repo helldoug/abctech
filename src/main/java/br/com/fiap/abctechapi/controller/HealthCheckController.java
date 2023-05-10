@@ -22,7 +22,7 @@ public class HealthCheckController {
     @GetMapping("version")
     public ResponseEntity<String> version() throws IOException {
         Properties properties = new Properties();
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.yml");
 
         properties.load(inputStream);
 
