@@ -17,7 +17,7 @@ public class OrderLocationDto {
 
 
     private Double latitude;
-    private Double longitude
+    private Double longitude;
     @PastOrPresent
     private Date date;
 }
