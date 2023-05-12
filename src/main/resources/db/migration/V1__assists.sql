@@ -1,4 +1,3 @@
-
 CREATE TABLE `assistances` (
                                `id` bigint NOT NULL AUTO_INCREMENT,
                                `description` varchar(255) NOT NULL,
