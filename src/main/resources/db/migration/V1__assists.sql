@@ -1,4 +1,3 @@
--- abc_tech.assistances definition
 
 CREATE TABLE `assistances` (
                                `id` bigint NOT NULL AUTO_INCREMENT,
