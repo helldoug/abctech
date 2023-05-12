@@ -1,6 +1,7 @@
 package br.com.fiap.abctechapi.Application.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,8 @@ public class OrderLocationDto {
 
     private Double latitude;
     private Double longitude;
+
     @PastOrPresent
+    @JsonProperty("dateTime")
     private Date date;
 }
