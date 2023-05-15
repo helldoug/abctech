@@ -3,6 +3,7 @@ package br.com.fiap.abctechapi.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.TypeAlias;
 
 import javax.persistence.*;
 
@@ -21,5 +22,4 @@ public class Assistance {
 
     @Column(name = "description", nullable = false)
     private String description;
-
 }

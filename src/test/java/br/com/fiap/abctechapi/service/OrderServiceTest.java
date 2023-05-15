@@ -25,6 +25,7 @@ import java.util.Optional;
 
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -58,29 +59,37 @@ public class OrderServiceTest {
         public void create_order_error_max_assist() {
             Order newOrder = new Order();
             newOrder.setOperatorId(1234L);
-            Assertions.assertThrows(MaximumAssistException.class, () -> orderService.saveOrder(newOrder, List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 1L, 2L)));
+            Assertions.assertThrows(MaximumAssistException.class, () -> orderService.saveOrder(newOrder, List.of(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L, 16L)));
             Mockito.verify(orderRepository, times(0)).save(newOrder);
         }
         //cenario criando order
-        @Test
         public void create_order_success() throws Exception {
             Order newOrder = new Order();
+
+            // Create mock data
             newOrder.setOperatorId(1234L);
 
-            orderService.saveOrder(newOrder, generate_mocks_ids(5));
+            List<Long> assists = List.of(1L, 2L, 3L);
+
+            Assistance assistance1 = new Assistance();
+            assistance1.setId(1L);
+
+            Assistance assistance2 = new Assistance();
+            assistance2.setId(2L);
+
+            Assistance assistance3 = new Assistance();
+            assistance3.setId(3L);
+
+            // Mock the behavior of assistanceRepository.findById
+            Mockito.when(assistanceRepository.findById(1L)).thenReturn(Optional.of(assistance1));
+            Mockito.when(assistanceRepository.findById(2L)).thenReturn(Optional.of(assistance2));
+            Mockito.when(assistanceRepository.findById(3L)).thenReturn(Optional.of(assistance3));
+
+            // Call the method
+            orderService.saveOrder(newOrder, assists);
+
+            // Verify the behavior
+            Mockito.verify(assistanceRepository, times(3)).findById(anyLong());
             Mockito.verify(orderRepository, times(1)).save(newOrder);
         }
-        private List<Long> generate_mocks_ids(int number){
-            ArrayList<Long> arrayList = new ArrayList<>();
-            for (int x= 0; x< number; x++){
-                arrayList.add(Integer.toUnsignedLong(x));
-
-            }
-            return arrayList;
-
-
-
-        }
-
-    }
-
+}
